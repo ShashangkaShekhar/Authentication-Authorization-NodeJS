@@ -1,0 +1,75 @@
+<div class="container">
+    <form action="/customers/save" method="POST">
+        <div class='row'>
+            <h3>Customer Info {{#if message }} - {{message}}{{/ if }}</h3>
+            <hr>
+            <input type="hidden" name="customerId" value="{{customer.customerId}}" />
+            <div class='col-sm-4'>
+                <div class='form-group'>
+                    <label for="customerName">Customer Name</label>
+                    <input class="form-control" id="customerName" name="customerName" size="250" type="text" required="true"
+                        value="{{customer.customerName}}" />
+                </div>
+            </div>
+            <div class='col-sm-4'>
+                <div class='form-group'>
+                    <label for="customerContact">Contact</label>
+                    <input class="form-control" id="customerContact" name="customerContact" required="true" size="250"
+                        value="{{customer.customerContact}}" type="text" />
+                </div>
+            </div>
+            <div class='col-sm-4'>
+                <div class='form-group'>
+                    <label for="customerEmail">Email</label>
+                    <input class="form-control" id="customerEmail" name="customerEmail" required="true" size="250" type="email"
+                        value="{{customer.customerEmail}}" />
+                </div>
+            </div>
+        </div>
+        <div class='row'>
+            <div class="col-md-1">
+                <button type="button" class="btn btn-warning" onclick="location.href='/';">Back</button>
+            </div>
+            <div class="col-md-1">
+                <button type="button" class="btn btn-danger" onclick="location.href='/customers';">Reset</button>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+    </form>
+
+    <div class='row'>
+        {{#if customerdata }}
+        <h3>Customer List</h3>
+        <hr>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Customer Name</th>
+                    <th>Contact</th>
+                    <th>Email</th>
+                    <th>Option</th>
+                </tr>
+            </thead>
+            {{#each customerdata}}
+            <tr>
+                <td>{{this.customerId}}</td>
+                <td>{{this.customerName}}</td>
+                <td>{{this.customerContact}}</td>
+                <td>{{this.customerEmail}}</td>
+                <td>
+                    <a href="/customers/edit/{{this.customerId}}" title="Edit Record" class="btn btn-primary btn-xs pull-right">
+                        Edit
+                    </a>
+                    <a href="/customers/delete/{{this.customerId}}" title="Delete Record" class="btn btn-danger btn-xs pull-right" onclick="return confirm('You are about to delete {{this.customerName}}, are you sure?')">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+            {{/each}}
+        </table>
+        {{/if}}
+    </div>
+</div>
